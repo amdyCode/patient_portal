@@ -1,0 +1,94 @@
+{
+  "recommandations": [
+    {
+      "id": "rec_001",
+      "titre": "8 heures de sommeil par nuit",
+      "description": "Un sommeil réparateur de 7 à 9 heures est essentiel pour la récupération physique et mentale. Maintenez des horaires réguliers.",
+      "categorie": "Sommeil",
+      "priorite": "Haute",
+      "dateCreation": "2024-01-15",
+      "source": "Organisation Mondiale de la Santé"
+    },
+    {
+      "id": "rec_002",
+      "titre": "Évitez les écrans avant le coucher",
+      "description": "La lumière bleue des écrans perturbe la production de mélatonine. Éteignez vos appareils 1h avant de dormir.",
+      "categorie": "Sommeil",
+      "priorite": "Moyenne",
+      "dateCreation": "2024-02-10",
+      "source": "Institut National du Sommeil"
+    },
+    {
+      "id": "rec_003",
+      "titre": "5 portions de fruits et légumes par jour",
+      "description": "Consommez au moins 400g de fruits et légumes variés quotidiennement pour un apport optimal en vitamines et fibres.",
+      "categorie": "Nutrition",
+      "priorite": "Haute",
+      "dateCreation": "2024-01-20",
+      "source": "Programme National Nutrition Santé"
+    },
+    {
+      "id": "rec_004",
+      "titre": "Limitez les sucres raffinés",
+      "description": "Réduisez votre consommation de sodas, pâtisseries et confiseries. Privilégiez les sucres naturels des fruits.",
+      "categorie": "Nutrition",
+      "priorite": "Moyenne",
+      "dateCreation": "2024-02-05",
+      "source": "Association Française des Diabétiques"
+    },
+    {
+      "id": "rec_005",
+      "titre": "Buvez 1,5L d'eau par jour",
+      "description": "Une hydratation suffisante est cruciale pour le bon fonctionnement de l'organisme. Adaptez selon votre activité.",
+      "categorie": "Nutrition",
+      "priorite": "Haute",
+      "dateCreation": "2024-01-25",
+      "source": "Ministère de la Santé"
+    },
+    {
+      "id": "rec_006",
+      "titre": "30 minutes d'activité physique quotidienne",
+      "description": "Marche, vélo, natation... L'exercice régulier renforce le système cardiovasculaire et améliore l'humeur.",
+      "categorie": "Activité physique",
+      "priorite": "Haute",
+      "dateCreation": "2024-01-30",
+      "source": "Fédération Française de Cardiologie"
+    },
+    {
+      "id": "rec_007",
+      "titre": "Prenez les escaliers",
+      "description": "Privilégiez les escaliers aux ascenseurs quand c'est possible. Chaque petit effort compte dans votre activité quotidienne.",
+      "categorie": "Activité physique",
+      "priorite": "Faible",
+      "dateCreation": "2024-02-15",
+      "source": "Santé Publique France"
+    },
+    {
+      "id": "rec_008",
+      "titre": "Étirez-vous 10 minutes par jour",
+      "description": "Les étirements améliorent la flexibilité, réduisent les tensions musculaires et préviennent les blessures.",
+      "categorie": "Activité physique",
+      "priorite": "Moyenne",
+      "dateCreation": "2024-02-20",
+      "source": "Fédération Française de Kinésithérapie"
+    },
+    {
+      "id": "rec_009",
+      "titre": "Créez un environnement calme pour dormir",
+      "description": "Chambre fraîche (18-20°C), silencieuse et obscure. Investissez dans de bonnes rideaux et une literie de qualité.",
+      "categorie": "Sommeil",
+      "priorite": "Moyenne",
+      "dateCreation": "2024-03-01",
+      "source": "Centre du Sommeil de Paris"
+    },
+    {
+      "id": "rec_010",
+      "titre": "Privilégiez les protéines maigres",
+      "description": "Poisson, volaille, légumineuses... Les protéines de qualité favorisent la satiété et maintiennent la masse musculaire.",
+      "categorie": "Nutrition",
+      "priorite": "Moyenne",
+      "dateCreation": "2024-03-05",
+      "source": "Société Française de Nutrition"
+    }
+  ]
+}

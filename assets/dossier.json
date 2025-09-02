@@ -1,0 +1,92 @@
+{
+  "patientId": "patient_001",
+  "dossierMedical": {
+    "antecedents": [
+      {
+        "id": "ant_001",
+        "type": "Maladie",
+        "nom": "Hypertension artérielle",
+        "dateDebut": "2020-03-15",
+        "statut": "En cours de traitement",
+        "description": "Hypertension légère contrôlée par médicaments"
+      },
+      {
+        "id": "ant_002",
+        "type": "Chirurgie",
+        "nom": "Appendicectomie",
+        "dateDebut": "2010-06-22",
+        "statut": "Guéri",
+        "description": "Ablation de l'appendice, récupération complète"
+      },
+      {
+        "id": "ant_003",
+        "type": "Familial",
+        "nom": "Diabète type 2",
+        "dateDebut": null,
+        "statut": "Antécédent familial",
+        "description": "Diabète chez les parents (père et mère)"
+      }
+    ],
+    "allergies": [
+      {
+        "id": "all_001",
+        "nom": "Pénicilline",
+        "type": "Médicament",
+        "gravite": "Modérée",
+        "symptomes": ["Éruption cutanée", "Démangeaisons"],
+        "dateDecouverte": "2018-09-12"
+      },
+      {
+        "id": "all_002",
+        "nom": "Pollen de bouleau",
+        "type": "Environnementale",
+        "gravite": "Légère",
+        "symptomes": ["Rhinite", "Yeux qui pleurent"],
+        "dateDecouverte": "2015-04-20"
+      },
+      {
+        "id": "all_003",
+        "nom": "Fruits à coque",
+        "type": "Alimentaire",
+        "gravite": "Sévère",
+        "symptomes": ["Difficultés respiratoires", "Gonflement"],
+        "dateDecouverte": "2012-11-08"
+      }
+    ],
+    "traitements": [
+      {
+        "id": "trait_001",
+        "medicament": "Lisinopril",
+        "dosage": "10mg",
+        "frequence": "1 fois par jour",
+        "dateDebut": "2020-03-20",
+        "dateFin": null,
+        "prescripteur": "Dr. Martin",
+        "indication": "Hypertension artérielle",
+        "statut": "Actif"
+      },
+      {
+        "id": "trait_002",
+        "medicament": "Vitamine D3",
+        "dosage": "1000 UI",
+        "frequence": "1 fois par jour",
+        "dateDebut": "2024-01-15",
+        "dateFin": "2024-12-31",
+        "prescripteur": "Dr. Martin",
+        "indication": "Carence en vitamine D",
+        "statut": "Actif"
+      },
+      {
+        "id": "trait_003",
+        "medicament": "Cetirizine",
+        "dosage": "10mg",
+        "frequence": "Au besoin",
+        "dateDebut": "2024-03-01",
+        "dateFin": null,
+        "prescripteur": "Dr. Dubois",
+        "indication": "Allergies saisonnières",
+        "statut": "Actif"
+      }
+    ]
+  }
+}

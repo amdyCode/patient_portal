@@ -1,0 +1,27 @@
+name: patient_portal
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.9.0-279.0.dev
+
+dependencies:
+  flutter:
+    sdk: flutter
+  go_router: ^16.1.0
+  provider: ^6.1.5
+
+dev_dependencies:
+  flutter_lints: ^5.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/patient.json
+    - assets/rendezvous.json
+    - assets/dossier.json
+    - assets/recommandations.json

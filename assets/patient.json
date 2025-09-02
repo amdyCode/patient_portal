@@ -1,0 +1,14 @@
+{
+  "id": "patient_001",
+  "prenom": "Marie",
+  "nom": "Dupont",
+  "dateNaissance": "1985-03-15",
+  "numeroSecu": "1851234567890",
+  "telephone": "06.12.34.56.78",
+  "email": "marie.dupont@email.com",
+  "adresse": {
+    "rue": "12 rue de la Santé",
+    "ville": "Paris",
+    "codePostal": "75014"
+  }
+}

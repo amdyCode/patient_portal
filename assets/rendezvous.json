@@ -1,0 +1,94 @@
+{
+  "rendezVous": [
+    {
+      "id": "rdv_001",
+      "medecin": {
+        "nom": "Dr. Martin",
+        "prenom": "Jean",
+        "specialite": "Médecine Générale"
+      },
+      "date": "2024-12-15",
+      "heure": "14:30",
+      "lieu": {
+        "cabinet": "Cabinet Médical du Centre",
+        "adresse": "25 Avenue de la République, 75011 Paris"
+      },
+      "type": "Consultation de routine",
+      "statut": "à_venir",
+      "duree": 30,
+      "notes": "Contrôle annuel"
+    },
+    {
+      "id": "rdv_002",
+      "medecin": {
+        "nom": "Dr. Dubois",
+        "prenom": "Sophie",
+        "specialite": "Cardiologie"
+      },
+      "date": "2024-08-10",
+      "heure": "09:00",
+      "lieu": {
+        "cabinet": "Clinique du Cœur",
+        "adresse": "8 Rue des Lilas, 75015 Paris"
+      },
+      "type": "Consultation spécialisée",
+      "statut": "passé",
+      "duree": 45,
+      "notes": "Suivi post-examen"
+    },
+    {
+      "id": "rdv_003",
+      "medecin": {
+        "nom": "Dr. Moreau",
+        "prenom": "Pierre",
+        "specialite": "Dermatologie"
+      },
+      "date": "2025-01-20",
+      "heure": "16:00",
+      "lieu": {
+        "cabinet": "Centre Dermatologique",
+        "adresse": "15 Boulevard Saint-Michel, 75005 Paris"
+      },
+      "type": "Consultation dermatologique",
+      "statut": "à_venir",
+      "duree": 30,
+      "notes": "Contrôle grain de beauté"
+    },
+    {
+      "id": "rdv_004",
+      "medecin": {
+        "nom": "Dr. Leroy",
+        "prenom": "Anne",
+        "specialite": "Ophtalmologie"
+      },
+      "date": "2024-07-25",
+      "heure": "11:15",
+      "lieu": {
+        "cabinet": "Centre Ophtalmologique Bastille",
+        "adresse": "32 Rue Saint-Antoine, 75004 Paris"
+      },
+      "type": "Contrôle de la vue",
+      "statut": "passé",
+      "duree": 45,
+      "notes": "Renouvellement ordonnance lunettes"
+    },
+    {
+      "id": "rdv_005",
+      "medecin": {
+        "nom": "Dr. Bernard",
+        "prenom": "Michel",
+        "specialite": "Dentiste"
+      },
+      "date": "2024-11-30",
+      "heure": "10:30",
+      "lieu": {
+        "cabinet": "Cabinet Dentaire Moderne",
+        "adresse": "7 Place de la Bastille, 75011 Paris"
+      },
+      "type": "Détartrage",
+      "statut": "à_venir",
+      "duree": 60,
+      "notes": "Nettoyage semestriel"
+    }
+  ]
+}
