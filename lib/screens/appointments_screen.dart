@@ -14,7 +14,7 @@ class AppointmentsScreen extends StatefulWidget {
 
 class _AppointmentsScreenState extends State<AppointmentsScreen> 
     with TickerProviderStateMixin {
-  int _selectedFilter = 0; // 0: Tous, 1: À venir, 2: Passés
+  int _selectedFilter = 0;
   late AnimationController _listAnimationController;
   late Animation<double> _listAnimation;
 
@@ -59,8 +59,9 @@ class _AppointmentsScreenState extends State<AppointmentsScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: const Color(0xFFF4F7FC),
       body: SafeArea(
+        bottom: false,
         child: Column(
           children: [
             _buildHeader(),
@@ -78,34 +79,48 @@ class _AppointmentsScreenState extends State<AppointmentsScreen>
 
   Widget _buildHeader() {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.fromLTRB(24, 32, 24, 16),
       child: Row(
         children: [
-          const Text(
-            'Mes Rendez-vous',
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF1E293B),
-            ),
+          const Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Vos',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Color(0xFF64748B),
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                'Rendez-vous',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF1E293B),
+                  letterSpacing: -0.5,
+                ),
+              ),
+            ],
           ),
           const Spacer(),
           Container(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.05),
-                  offset: const Offset(0, 2),
-                  blurRadius: 8,
+                  color: Colors.black.withValues(alpha: 0.04),
+                  offset: const Offset(0, 4),
+                  blurRadius: 12,
                 ),
               ],
             ),
-            child: const Icon(
+            child: Icon(
               Icons.calendar_month_rounded,
-              color: Color(0xFF3B82F6),
+              color: Theme.of(context).primaryColor,
               size: 24,
             ),
           ),
@@ -204,7 +219,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen>
             return FadeTransition(
               opacity: _listAnimation,
               child: ListView.separated(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.fromLTRB(20, 10, 20, 120),
                 itemCount: filteredAppointments.length,
                 separatorBuilder: (context, index) => const SizedBox(height: 16),
                 itemBuilder: (context, index) {
