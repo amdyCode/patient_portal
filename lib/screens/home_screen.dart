@@ -6,6 +6,7 @@ import '../services/data_loader.dart';
 import '../models/patient.dart';
 import '../models/recommandation.dart';
 import '../widgets/health_tip_card.dart';
+import '../widgets/interactive_mood_selector.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,11 +31,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       end: Offset.zero,
     ).animate(CurvedAnimation(
       parent: _slideController,
-      curve: Curves.easeOut,
+      curve: Curves.easeOutCubic,
     ));
     _slideController.forward();
 
-    // Précharger les données au démarrage
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<DataLoader>().preloadAllData();
     });
@@ -56,17 +56,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
+        bottom: false,
         child: SlideTransition(
           position: _slideAnimation,
           child: Consumer<DataLoader>(
             builder: (context, dataLoader, child) {
               if (dataLoader.isLoading) {
                 return const Center(
-                  child: CircularProgressIndicator(
-                    color: Color(0xFF3B82F6),
-                  ),
+                  child: CircularProgressIndicator(),
                 );
               }
 
@@ -76,14 +75,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Icon(
-                        Icons.error_outline,
+                        Icons.error_outline_rounded,
                         size: 64,
                         color: Color(0xFFEF4444),
                       ),
                       const SizedBox(height: 16),
-                      Text(
+                      const Text(
                         'Erreur de chargement',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF1E293B),
@@ -111,12 +110,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               }
 
               return SingleChildScrollView(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 100),
+                physics: const BouncingScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 20),
                     _buildWelcomeHeader(dataLoader.patient),
+                    const SizedBox(height: 30),
+                    const InteractiveMoodSelector(),
                     const SizedBox(height: 30),
                     _buildQuickStatsRow(),
                     const SizedBox(height: 25),
@@ -138,27 +139,49 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   Widget _buildWelcomeHeader(Patient? patient) {
     String firstName = patient?.prenom ?? 'Utilisateur';
     
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          '${_getTimeGreeting()} $firstName',
-          style: const TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFF1E293B),
-            letterSpacing: -0.5,
-          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              '${_getTimeGreeting()},',
+              style: const TextStyle(
+                fontSize: 16,
+                color: Color(0xFF64748B),
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            Text(
+              firstName,
+              style: const TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF1E293B),
+                letterSpacing: -0.5,
+              ),
+            ),
+          ],
         ),
-        const SizedBox(height: 8),
-        const Text(
-          'Comment vous sentez-vous aujourd\'hui ?',
-          style: TextStyle(
-            fontSize: 16,
-            color: Color(0xFF64748B),
-            fontWeight: FontWeight.w400,
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              )
+            ]
           ),
-        ),
+          child: const CircleAvatar(
+            radius: 24,
+            backgroundColor: Colors.transparent,
+            backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=47'), // Fake avatar
+          ),
+        )
       ],
     );
   }
@@ -239,8 +262,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             Expanded(
               child: _buildActionCard(
                 'Nouveau RDV',
-                Icons.add_circle_outline_rounded,
-                const Color(0xFF3B82F6),
+                Icons.calendar_month_rounded,
+                Theme.of(context).primaryColor,
                 _showNewAppointmentDialog,
               ),
             ),
@@ -266,8 +289,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: color.withValues(alpha: 0.2), width: 1.5),
+          borderRadius: BorderRadius.circular(24),
+          boxShadow: [
+            BoxShadow(
+              color: color.withValues(alpha: 0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            )
+          ]
         ),
         child: Column(
           children: [
@@ -275,7 +304,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: color.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
+                shape: BoxShape.circle,
               ),
               child: Icon(
                 icon,
@@ -304,7 +333,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(24),
           ),
           title: const Text('Nouveau rendez-vous'),
           content: const Text('Cette fonctionnalité sera bientôt disponible.'),
@@ -325,11 +354,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(24),
           ),
           title: const Row(
             children: [
-              Icon(Icons.emergency, color: Color(0xFFEF4444)),
+              Icon(Icons.warning_amber_rounded, color: Color(0xFFEF4444)),
               SizedBox(width: 8),
               Text('Urgence médicale'),
             ],
@@ -343,12 +372,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: const Color(0xFFEF4444).withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(16),
                 ),
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.phone, color: Color(0xFFEF4444)),
+                    Icon(Icons.phone_in_talk_rounded, color: Color(0xFFEF4444)),
                     SizedBox(width: 8),
                     Text(
                       '15 - SAMU',
@@ -373,5 +402,4 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       },
     );
   }
-  
 }

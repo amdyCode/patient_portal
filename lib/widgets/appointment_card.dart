@@ -107,7 +107,6 @@ class AppointmentCard extends StatelessWidget {
               appointment.notes!,
             ),
           ],
-          // Boutons d'action pour les RDV à venir
           if (appointment.statut == StatutRendezVous.aVenir && 
               (onModify != null || onCancel != null)) ...[
             const SizedBox(height: 16),

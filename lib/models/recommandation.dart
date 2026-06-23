@@ -21,7 +21,6 @@ class Recommandation {
   });
 
   factory Recommandation.fromJson(Map<String, dynamic> json) {
-    // Convertir la catégorie string en enum
     CategorieRecommandation categorieEnum;
     switch (json['categorie'].toLowerCase()) {
       case 'sommeil':
@@ -38,7 +37,6 @@ class Recommandation {
         categorieEnum = CategorieRecommandation.nutrition;
     }
 
-    // Convertir la priorité string en enum
     PrioriteRecommandation prioriteEnum;
     switch (json['priorite'].toLowerCase()) {
       case 'faible':
@@ -66,7 +64,6 @@ class Recommandation {
   }
 
   Map<String, dynamic> toJson() {
-    // Convertir les enums en strings
     String categorieString;
     switch (categorie) {
       case CategorieRecommandation.sommeil:
@@ -137,7 +134,6 @@ class Recommandation {
     }
   }
 
-  // Méthode helper pour filtrer par catégorie
   static List<Recommandation> filtrerParCategorie(
     List<Recommandation> recommandations,
     CategorieRecommandation? categorie,
@@ -148,13 +144,11 @@ class Recommandation {
         .toList();
   }
 
-  // Méthode helper pour trier par priorité
   static List<Recommandation> trierParPriorite(
     List<Recommandation> recommandations,
   ) {
     final copy = List<Recommandation>.from(recommandations);
     copy.sort((a, b) {
-      // Ordre: Haute -> Moyenne -> Faible
       const prioriteValues = {
         PrioriteRecommandation.haute: 3,
         PrioriteRecommandation.moyenne: 2,
@@ -167,7 +161,6 @@ class Recommandation {
   }
 }
 
-// Classe helper pour gérer les recommandations
 class RecommandationsData {
   final List<Recommandation> recommandations;
 
@@ -210,12 +203,9 @@ class RecommandationsData {
           .where((r) => r.priorite == PrioriteRecommandation.haute)
           .toList();
 
-  // Recommandation aléatoire du jour
   Recommandation? get recommandationDuJour {
     if (recommandations.isEmpty) return null;
     
-    // Utilise la date actuelle comme seed pour avoir toujours 
-    // la même recommandation le même jour
     final today = DateTime.now();
     final seed = today.day + today.month * 31 + today.year * 365;
     final index = seed % recommandations.length;

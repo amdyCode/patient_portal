@@ -7,18 +7,15 @@ import '../models/dossier.dart';
 import '../models/recommandation.dart';
 
 class DataLoader extends ChangeNotifier {
-  // Instance singleton pour éviter de recharger les données à chaque fois
   static final DataLoader _instance = DataLoader._internal();
   factory DataLoader() => _instance;
   DataLoader._internal();
 
-  // Cache des données
   Patient? _patient;
   List<RendezVous>? _rendezVous;
   DossierMedical? _dossierMedical;
   RecommandationsData? _recommandationsData;
 
-  // États de chargement
   bool _isLoading = false;
   String? _error;
 
@@ -30,7 +27,6 @@ class DataLoader extends ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get error => _error;
 
-  // Charge les données du patient depuis le fichier JSON
   Future<Patient> loadPatient() async {
     if (_patient != null) return _patient!;
 
@@ -77,7 +73,6 @@ class DataLoader extends ChangeNotifier {
     }
   }
 
-  // Charge le dossier médical depuis le fichier JSON
   Future<DossierMedical> loadDossierMedical() async {
     if (_dossierMedical != null) return _dossierMedical!;
 
@@ -96,7 +91,6 @@ class DataLoader extends ChangeNotifier {
     }
   }
 
-  // Charge les recommandations santé depuis le fichier JSON
   Future<RecommandationsData> loadRecommandations() async {
     if (_recommandationsData != null) return _recommandationsData!;
 
@@ -115,9 +109,6 @@ class DataLoader extends ChangeNotifier {
     }
   }
 
-  // Méthodes utilitaires pour des données spécifiques
-
-  // Récupère le dernier rendez-vous (le plus récent dans le passé)
   Future<RendezVous?> getDernierRendezVous() async {
     final rendezVous = await loadRendezVous();
     final rendezVousPasses = rendezVous
@@ -133,7 +124,6 @@ class DataLoader extends ChangeNotifier {
     return rendezVousPasses.first;
   }
 
-  // Récupère les prochains rendez-vous
   Future<List<RendezVous>> getProchainRendezVous() async {
     final rendezVous = await loadRendezVous();
     final rendezVousAVenir = rendezVous
@@ -147,13 +137,11 @@ class DataLoader extends ChangeNotifier {
     return rendezVousAVenir;
   }
 
-  // Récupère le prochain rendez-vous (le plus proche dans le futur)
   Future<RendezVous?> getNextRendezVous() async {
     final prochains = await getProchainRendezVous();
     return prochains.isNotEmpty ? prochains.first : null;
   }
 
-  // Filtre les rendez-vous par statut
   Future<List<RendezVous>> getRendezVousByStatut(
     StatutRendezVous statut,
   ) async {
@@ -161,13 +149,11 @@ class DataLoader extends ChangeNotifier {
     return rendezVous.where((rdv) => rdv.statut == statut).toList();
   }
 
-  // Récupère une recommandation aléatoire du jour
   Future<Recommandation?> getRecommandationDuJour() async {
     final recommandationsData = await loadRecommandations();
     return recommandationsData.recommandationDuJour;
   }
 
-  // Récupère les recommandations par catégorie
   Future<List<Recommandation>> getRecommandationsByCategorie(
     CategorieRecommandation? categorie,
   ) async {
@@ -178,25 +164,21 @@ class DataLoader extends ChangeNotifier {
     );
   }
 
-  // Récupère les traitements actifs
   Future<List<Traitement>> getTraitementsActifs() async {
     final dossier = await loadDossierMedical();
     return dossier.traitementsActifs;
   }
 
-  // Récupère les allergies par gravité
   Future<List<Allergie>> getAllergiesByGravite(GraviteAllergie gravite) async {
     final dossier = await loadDossierMedical();
     return dossier.allergies.where((a) => a.gravite == gravite).toList();
   }
 
-  // Récupère les antécédents par type
   Future<List<Antecedent>> getAntecedentsByType(TypeAntecedent type) async {
     final dossier = await loadDossierMedical();
     return dossier.antecedents.where((a) => a.type == type).toList();
   }
 
-  // Méthode pour précharger toutes les données au démarrage de l'app
   Future<void> preloadAllData() async {
     try {
       _setLoading(true);
@@ -213,7 +195,6 @@ class DataLoader extends ChangeNotifier {
     }
   }
 
-  // Méthode pour vider le cache (utile pour le debug ou refresh)
   void clearCache() {
     _patient = null;
     _rendezVous = null;
@@ -223,14 +204,12 @@ class DataLoader extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Méthode pour vérifier si les données sont en cache
   bool get isDataCached =>
       _patient != null &&
       _rendezVous != null &&
       _dossierMedical != null &&
       _recommandationsData != null;
 
-  // Statistiques utiles pour l'interface
   Future<Map<String, dynamic>> getStatistiques() async {
     await preloadAllData();
 
@@ -249,7 +228,6 @@ class DataLoader extends ChangeNotifier {
     };
   }
 
-  // Méthodes privées pour gérer l'état
   void _setLoading(bool loading) {
     _isLoading = loading;
     _error = null;

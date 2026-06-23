@@ -43,7 +43,6 @@ class AppRoutes {
     ],
   );
 
-  // Routes statiques pour navigation
   static const String home = '/';
   static const String appointments = '/rendez-vous';
   static const String dossier = '/dossier';
