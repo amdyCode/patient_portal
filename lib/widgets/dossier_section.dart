@@ -25,7 +25,7 @@ class DossierSection extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: color.withOpacity(0.1),
+            color: color.withValues(alpha: 0.1),
             offset: const Offset(0, 4),
             blurRadius: 12,
           ),
@@ -39,7 +39,7 @@ class DossierSection extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
+                  color: color.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Icon(
@@ -65,7 +65,7 @@ class DossierSection extends StatelessWidget {
                   child: Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: color.withOpacity(0.1),
+                      color: color.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Icon(Icons.edit_outlined, color: color, size: 16),
@@ -126,7 +126,7 @@ class DossierSection extends StatelessWidget {
                   ),
                 ],
               ),
-            )).toList(),
+            ))
         ],
       ),
     );

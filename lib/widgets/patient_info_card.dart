@@ -31,7 +31,7 @@ class PatientInfoCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF667EEA).withOpacity(0.3),
+            color: const Color(0xFF667EEA).withValues(alpha: 0.3),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -45,10 +45,10 @@ class PatientInfoCard extends StatelessWidget {
                 width: 60,
                 height: 60,
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
+                  color: Colors.white.withValues(alpha: 0.2),
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: Colors.white.withOpacity(0.3),
+                    color: Colors.white.withValues(alpha: 0.3),
                     width: 2,
                   ),
                 ),
@@ -79,14 +79,14 @@ class PatientInfoCard extends StatelessWidget {
                     Text(
                       'Né(e) le ${_formatDate(patient!.dateNaissance)}',
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.8),
+                        color: Colors.white.withValues(alpha: 0.8),
                         fontSize: 14,
                       ),
                     ),
                     Text(
                       'Numéro de sécurité sociale : ${patient!.numeroSecu}',
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.8),
+                        color: Colors.white.withValues(alpha: 0.8),
                         fontSize: 12,
                       ),
                     ),
@@ -99,7 +99,7 @@ class PatientInfoCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.1),
+              color: Colors.white.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(
@@ -110,7 +110,7 @@ class PatientInfoCard extends StatelessWidget {
                       Text(
                         'Âge',
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.8),
+                          color: Colors.white.withValues(alpha: 0.8),
                           fontSize: 12,
                         ),
                       ),
@@ -128,7 +128,7 @@ class PatientInfoCard extends StatelessWidget {
                 Container(
                   width: 1,
                   height: 30,
-                  color: Colors.white.withOpacity(0.3),
+                  color: Colors.white.withValues(alpha: 0.3),
                 ),
                 Expanded(
                   child: Column(
@@ -136,7 +136,7 @@ class PatientInfoCard extends StatelessWidget {
                       Text(
                         'Téléphone',
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.8),
+                          color: Colors.white.withValues(alpha: 0.8),
                           fontSize: 12,
                         ),
                       ),
@@ -154,7 +154,7 @@ class PatientInfoCard extends StatelessWidget {
                 Container(
                   width: 1,
                   height: 30,
-                  color: Colors.white.withOpacity(0.3),
+                  color: Colors.white.withValues(alpha: 0.3),
                 ),
                 Expanded(
                   child: Column(
@@ -162,7 +162,7 @@ class PatientInfoCard extends StatelessWidget {
                       Text(
                         'Email',
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.8),
+                          color: Colors.white.withValues(alpha: 0.8),
                           fontSize: 12,
                         ),
                       ),

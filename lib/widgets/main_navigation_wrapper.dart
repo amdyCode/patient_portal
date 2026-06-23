@@ -98,7 +98,7 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper>
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFF3B82F6).withOpacity(0.3),
+                          color: const Color(0xFF3B82F6).withValues(alpha: 0.3),
                           offset: const Offset(0, 8),
                           blurRadius: 20,
                         ),
@@ -155,7 +155,7 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper>
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             offset: const Offset(0, -4),
             blurRadius: 20,
           ),
@@ -183,7 +183,7 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper>
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF3B82F6).withOpacity(0.1) : null,
+          color: isSelected ? const Color(0xFF3B82F6).withValues(alpha: 0.1) : null,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Column(

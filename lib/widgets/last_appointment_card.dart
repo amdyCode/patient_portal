@@ -40,7 +40,7 @@ class LastAppointmentCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF3B82F6).withOpacity(0.25),
+                color: const Color(0xFF3B82F6).withValues(alpha: 0.25),
                 offset: const Offset(0, 8),
                 blurRadius: 24,
               ),
@@ -54,7 +54,7 @@ class LastAppointmentCard extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.white.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: const Icon(
@@ -67,7 +67,7 @@ class LastAppointmentCard extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.white.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: const Text(
@@ -85,7 +85,7 @@ class LastAppointmentCard extends StatelessWidget {
               Text(
                 'Dernier rendez-vous',
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.9),
+                  color: Colors.white.withValues(alpha: 0.9),
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
                 ),
@@ -103,7 +103,7 @@ class LastAppointmentCard extends StatelessWidget {
               Text(
                 '${appointment.medecin.specialite} • ${_formatDate(appointment.date)}',
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.9),
+                  color: Colors.white.withValues(alpha: 0.9),
                   fontSize: 14,
                 ),
               ),
