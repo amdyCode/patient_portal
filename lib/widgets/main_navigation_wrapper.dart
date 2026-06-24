@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../routes/app_routes.dart';
+import '../theme/app_theme.dart';
 
 class MainNavigationWrapper extends StatefulWidget {
   final Widget child;
@@ -85,10 +86,10 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper> {
                 height: 70,
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.75),
+                  color: Colors.white.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(32),
                   border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.6),
+                    color: Colors.white.withValues(alpha: 0.1),
                     width: 1.5,
                   ),
                 ),
@@ -111,7 +112,6 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper> {
 
   Widget _buildNavItem(int index, IconData icon, String label, int currentIndex) {
     bool isSelected = currentIndex == index;
-    final primaryColor = Theme.of(context).primaryColor;
     
     return GestureDetector(
       onTap: () => _onTabTapped(index),
@@ -121,12 +121,13 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper> {
         curve: Curves.easeOutCubic,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
-          color: isSelected ? primaryColor : Colors.transparent,
+          gradient: isSelected ? AppTheme.neonGradient : null,
+          color: isSelected ? null : Colors.transparent,
           borderRadius: BorderRadius.circular(24),
           boxShadow: isSelected ? [
             BoxShadow(
-              color: primaryColor.withValues(alpha: 0.3),
-              blurRadius: 12,
+              color: AppTheme.neonPurple.withValues(alpha: 0.4),
+              blurRadius: 15,
               offset: const Offset(0, 4),
             )
           ] : [],
@@ -136,7 +137,7 @@ class _MainNavigationWrapperState extends State<MainNavigationWrapper> {
           children: [
             Icon(
               icon,
-              color: isSelected ? Colors.white : const Color(0xFF64748B),
+              color: isSelected ? Colors.white : Colors.white60,
               size: 22,
             ),
             if (isSelected) ...[

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/appointment.dart';
+import '../theme/app_theme.dart';
+import 'dart:ui';
 
 class AppointmentCard extends StatelessWidget {
   final RendezVous appointment;
@@ -19,19 +21,28 @@ class AppointmentCard extends StatelessWidget {
     final String statusText = _getStatusText();
 
     return Container(
-      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.white.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(24),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.1),
+          width: 1.5,
+        ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.04),
+            color: statusColor.withValues(alpha: 0.15),
             offset: const Offset(0, 8),
             blurRadius: 24,
           ),
         ],
       ),
-      child: Column(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(24),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -59,7 +70,7 @@ class AppointmentCard extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1E293B),
+                        color: Colors.white,
                         letterSpacing: -0.5,
                       ),
                     ),
@@ -68,7 +79,7 @@ class AppointmentCard extends StatelessWidget {
                       appointment.medecin.specialite,
                       style: const TextStyle(
                         fontSize: 14,
-                        color: Color(0xFF64748B),
+                        color: Colors.white60,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -96,7 +107,7 @@ class AppointmentCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: const Color(0xFFF8FAFC),
+              color: Colors.white.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(16),
             ),
             child: Row(
@@ -111,7 +122,7 @@ class AppointmentCard extends StatelessWidget {
                 Container(
                   width: 1,
                   height: 40,
-                  color: const Color(0xFFE2E8F0),
+                  color: Colors.white.withValues(alpha: 0.1),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
@@ -142,9 +153,9 @@ class AppointmentCard extends StatelessWidget {
                     child: OutlinedButton(
                       onPressed: () => onCancel!(appointment),
                       style: OutlinedButton.styleFrom(
-                        foregroundColor: const Color(0xFF64748B),
+                        foregroundColor: Colors.white60,
                         padding: const EdgeInsets.symmetric(vertical: 12),
-                        side: const BorderSide(color: Color(0xFFE2E8F0)),
+                        side: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -159,10 +170,11 @@ class AppointmentCard extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () => onModify!(appointment),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
+                        backgroundColor: AppTheme.neonPurple,
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         elevation: 0,
+                        shadowColor: AppTheme.neonPurple.withValues(alpha: 0.5),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -175,6 +187,9 @@ class AppointmentCard extends StatelessWidget {
           ],
         ],
       ),
+            ),
+          ),
+        ),
     );
   }
 
@@ -190,7 +205,7 @@ class AppointmentCard extends StatelessWidget {
               label,
               style: const TextStyle(
                 fontSize: 12,
-                color: Color(0xFF94A3B8),
+                color: Colors.white60,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -199,7 +214,7 @@ class AppointmentCard extends StatelessWidget {
               value,
               style: const TextStyle(
                 fontSize: 14,
-                color: Color(0xFF1E293B),
+                color: Colors.white,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -219,7 +234,7 @@ class AppointmentCard extends StatelessWidget {
             text,
             style: const TextStyle(
               fontSize: 14,
-              color: Color(0xFF64748B),
+              color: Colors.white60,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -231,11 +246,11 @@ class AppointmentCard extends StatelessWidget {
   Color _getStatusColor() {
     switch (appointment.statut) {
       case StatutRendezVous.aVenir:
-        return const Color(0xFF3B82F6);
+        return AppTheme.neonBlue;
       case StatutRendezVous.passe:
-        return const Color(0xFF10B981);
+        return AppTheme.neonGreen;
       case StatutRendezVous.annule:
-        return const Color(0xFFEF4444);
+        return const Color(0xFFFF5252);
     }
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
 
 class FilterTabs extends StatelessWidget {
   final int selectedIndex;
@@ -18,15 +19,12 @@ class FilterTabs extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.white.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(30),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          )
-        ],
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.1),
+          width: 1.5,
+        ),
       ),
       child: Row(
         children: List.generate(
@@ -39,7 +37,6 @@ class FilterTabs extends StatelessWidget {
 
   Widget _buildFilterTab(BuildContext context, String title, int index) {
     bool isSelected = selectedIndex == index;
-    final primaryColor = Theme.of(context).primaryColor;
     return Expanded(
       child: GestureDetector(
         onTap: () => onChanged(index),
@@ -49,14 +46,15 @@ class FilterTabs extends StatelessWidget {
           curve: Curves.easeOutCubic,
           padding: const EdgeInsets.symmetric(vertical: 12),
           decoration: BoxDecoration(
-            color: isSelected ? primaryColor : Colors.transparent,
+            gradient: isSelected ? AppTheme.neonGradient : null,
+            color: isSelected ? null : Colors.transparent,
             borderRadius: BorderRadius.circular(26),
             boxShadow: isSelected
                 ? [
                     BoxShadow(
-                      color: primaryColor.withValues(alpha: 0.3),
+                      color: AppTheme.neonPurple.withValues(alpha: 0.4),
                       offset: const Offset(0, 4),
-                      blurRadius: 8,
+                      blurRadius: 12,
                     ),
                   ]
                 : null,
@@ -65,7 +63,7 @@ class FilterTabs extends StatelessWidget {
             title,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: isSelected ? Colors.white : const Color(0xFF64748B),
+              color: isSelected ? Colors.white : Colors.white60,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
               fontSize: 14,
             ),

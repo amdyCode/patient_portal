@@ -60,7 +60,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F7FC),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -90,7 +90,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen>
                 'Vos',
                 style: TextStyle(
                   fontSize: 16,
-                  color: Color(0xFF64748B),
+                  color: Colors.white60,
                   fontWeight: FontWeight.w500,
                 ),
               ),
@@ -99,7 +99,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen>
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF1E293B),
+                  color: Colors.white,
                   letterSpacing: -0.5,
                 ),
               ),
@@ -109,11 +109,15 @@ class _AppointmentsScreenState extends State<AppointmentsScreen>
           Container(
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.white.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.1),
+                width: 1.5,
+              ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.04),
+                  color: Theme.of(context).primaryColor.withValues(alpha: 0.2),
                   offset: const Offset(0, 4),
                   blurRadius: 12,
                 ),
@@ -160,14 +164,14 @@ class _AppointmentsScreenState extends State<AppointmentsScreen>
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1E293B),
+                        color: Colors.white,
                       ),
                     ),
                     const SizedBox(height: 8),
                     const Text(
                       'Vous n\'avez pas de rendez-vous planifiés.',
                       style: TextStyle(
-                        color: Color(0xFF64748B),
+                        color: Colors.white60,
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -209,7 +213,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen>
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1E293B),
+                        color: Colors.white,
                       ),
                     ),
                   ],
@@ -243,6 +247,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen>
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: const Color(0xFF1E1E2A),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
@@ -266,6 +271,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen>
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: const Color(0xFF1E1E2A),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),

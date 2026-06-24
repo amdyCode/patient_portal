@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/recommandation.dart';
+import '../theme/app_theme.dart';
+import 'dart:ui';
 
 class HealthTipCard extends StatelessWidget {
   final Recommandation recommandation;
@@ -12,13 +14,28 @@ class HealthTipCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Colors.white.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFE2E8F0), width: 1),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.1),
+          width: 1.5,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: _getCategoryColor().withValues(alpha: 0.15),
+            blurRadius: 24,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
-      child: Row(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Row(
         children: [
           Container(
             width: 60,
@@ -74,7 +91,7 @@ class HealthTipCard extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF1E293B),
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -82,7 +99,7 @@ class HealthTipCard extends StatelessWidget {
                   recommandation.description,
                   style: const TextStyle(
                     fontSize: 14,
-                    color: Color(0xFF64748B),
+                    color: Colors.white60,
                     height: 1.4,
                   ),
                   maxLines: 3,
@@ -93,17 +110,20 @@ class HealthTipCard extends StatelessWidget {
           ),
         ],
       ),
+          ),
+        ),
+      ),
     );
   }
 
   Color _getCategoryColor() {
     switch (recommandation.categorie) {
       case CategorieRecommandation.sommeil:
-        return const Color(0xFF8B5CF6);
+        return AppTheme.neonPurple;
       case CategorieRecommandation.nutrition:
-        return const Color(0xFF10B981);
+        return AppTheme.neonGreen;
       case CategorieRecommandation.activitePhysique:
-        return const Color(0xFF3B82F6);
+        return AppTheme.neonBlue;
     }
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
 
 class InteractiveMoodSelector extends StatefulWidget {
   const InteractiveMoodSelector({super.key});
@@ -11,10 +12,10 @@ class _InteractiveMoodSelectorState extends State<InteractiveMoodSelector> {
   int? _selectedIndex;
 
   final List<Map<String, dynamic>> _moods = [
-    {'icon': '😢', 'label': 'Pas top', 'color': Color(0xFFEF4444)},
-    {'icon': '😐', 'label': 'Moyen', 'color': Color(0xFFF59E0B)},
-    {'icon': '🙂', 'label': 'Bien', 'color': Color(0xFF10B981)},
-    {'icon': '😁', 'label': 'Super', 'color': Color(0xFF3B82F6)},
+    {'icon': '😢', 'label': 'Pas top', 'color': Color(0xFFFF5252)},
+    {'icon': '😐', 'label': 'Moyen', 'color': AppTheme.neonOrange},
+    {'icon': '🙂', 'label': 'Bien', 'color': AppTheme.neonGreen},
+    {'icon': '😁', 'label': 'Super', 'color': AppTheme.neonBlue},
   ];
 
   @override
@@ -26,7 +27,7 @@ class _InteractiveMoodSelectorState extends State<InteractiveMoodSelector> {
           'Comment vous sentez-vous aujourd\'hui ?',
           style: TextStyle(
             fontSize: 16,
-            color: Color(0xFF64748B),
+            color: Colors.white60,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -52,27 +53,21 @@ class _InteractiveMoodSelectorState extends State<InteractiveMoodSelector> {
                   vertical: isSelected ? 16 : 12,
                 ),
                 decoration: BoxDecoration(
-                  color: isSelected ? color.withValues(alpha: 0.15) : Colors.white,
+                  color: isSelected ? color.withValues(alpha: 0.15) : Colors.white.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(24),
                   border: Border.all(
-                    color: isSelected ? color.withValues(alpha: 0.5) : Colors.grey.withValues(alpha: 0.2),
-                    width: isSelected ? 2 : 1,
+                    color: isSelected ? color.withValues(alpha: 0.5) : Colors.white.withValues(alpha: 0.1),
+                    width: isSelected ? 2 : 1.5,
                   ),
                   boxShadow: isSelected
                       ? [
                           BoxShadow(
-                            color: color.withValues(alpha: 0.2),
-                            blurRadius: 12,
+                            color: color.withValues(alpha: 0.25),
+                            blurRadius: 20,
                             offset: const Offset(0, 4),
                           )
                         ]
-                      : [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.02),
-                            blurRadius: 8,
-                            offset: const Offset(0, 2),
-                          )
-                        ],
+                      : [],
                 ),
                 child: Column(
                   children: [

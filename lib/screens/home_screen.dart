@@ -150,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               '${_getTimeGreeting()},',
               style: const TextStyle(
                 fontSize: 16,
-                color: Color(0xFF64748B),
+                color: Colors.white60,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -159,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               style: const TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
-                color: Color(0xFF1E293B),
+                color: Colors.white,
                 letterSpacing: -0.5,
               ),
             ),
@@ -167,12 +167,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         ),
         Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Colors.white.withValues(alpha: 0.05),
             shape: BoxShape.circle,
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.1),
+              width: 1.5,
+            ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.05),
-                blurRadius: 10,
+                color: Theme.of(context).primaryColor.withValues(alpha: 0.2),
+                blurRadius: 15,
                 offset: const Offset(0, 4),
               )
             ]
@@ -254,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF1E293B),
+            color: Colors.white,
           ),
         ),
         const SizedBox(height: 16),
@@ -289,13 +293,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.white.withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(24),
+          border: Border.all(
+            color: Colors.white.withValues(alpha: 0.1),
+            width: 1.5,
+          ),
           boxShadow: [
             BoxShadow(
-              color: color.withValues(alpha: 0.05),
-              blurRadius: 10,
-              offset: const Offset(0, 4),
+              color: color.withValues(alpha: 0.15),
+              blurRadius: 24,
+              offset: const Offset(0, 8),
             )
           ]
         ),
@@ -319,7 +327,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
-                color: Color(0xFF1E293B),
+                color: Colors.white,
               ),
             ),
           ],
@@ -335,6 +343,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: const Color(0xFF1E1E2A),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(24),
           ),
@@ -348,7 +357,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text('En cas d\'urgence vitale, appelez immédiatement le :'),
+              const Text('En cas d\'urgence vitale, appelez immédiatement le :', style: TextStyle(color: Colors.white60)),
               const SizedBox(height: 16),
               Container(
                 padding: const EdgeInsets.all(16),
