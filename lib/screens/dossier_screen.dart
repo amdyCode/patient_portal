@@ -49,9 +49,35 @@ class _DossierScreenState extends State<DossierScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF8FAFC),
-      body: SafeArea(
-        child: Column(
-          children: [
+      body: Stack(
+        children: [
+          Positioned(
+            top: -100,
+            right: -100,
+            child: Container(
+              width: 300,
+              height: 300,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: const Color(0xFF3B82F6).withValues(alpha: 0.1),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 200,
+            left: -100,
+            child: Container(
+              width: 250,
+              height: 250,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: const Color(0xFF8B5CF6).withValues(alpha: 0.1),
+              ),
+            ),
+          ),
+          SafeArea(
+            child: Column(
+              children: [
             _buildHeader(),
             Expanded(
               child: Consumer<DataLoader>(
@@ -95,7 +121,7 @@ class _DossierScreenState extends State<DossierScreen>
                       final patient = dataLoader.patient;
 
                       return SingleChildScrollView(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 120),
                         child: Column(
                           children: [
                             SlideTransition(
@@ -152,6 +178,8 @@ class _DossierScreenState extends State<DossierScreen>
             ),
           ],
         ),
+      ),
+      ],
       ),
     );
   }

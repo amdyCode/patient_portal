@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 
 class DossierSection extends StatelessWidget {
   final String title;
@@ -19,19 +20,25 @@ class DossierSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+        color: Colors.white.withValues(alpha: 0.7),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.5), width: 1.5),
         boxShadow: [
           BoxShadow(
             color: color.withValues(alpha: 0.1),
-            offset: const Offset(0, 4),
-            blurRadius: 12,
+            offset: const Offset(0, 8),
+            blurRadius: 24,
           ),
         ],
       ),
-      child: Column(
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -128,6 +135,9 @@ class DossierSection extends StatelessWidget {
               ),
             ))
         ],
+      ),
+          ),
+        ),
       ),
     );
   }
