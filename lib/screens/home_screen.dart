@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:patient_portal/widgets/last_appointment_card.dart';
 import 'package:patient_portal/widgets/stat_card.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 import '../services/data_loader.dart';
 import '../models/patient.dart';
 import '../models/recommandation.dart';
@@ -264,7 +265,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 'Nouveau RDV',
                 Icons.calendar_month_rounded,
                 Theme.of(context).primaryColor,
-                _showNewAppointmentDialog,
+                () => context.push('/nouvelle-prise-rdv'),
               ),
             ),
             const SizedBox(width: 15),
@@ -327,26 +328,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  void _showNewAppointmentDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(24),
-          ),
-          title: const Text('Nouveau rendez-vous'),
-          content: const Text('Cette fonctionnalité sera bientôt disponible.'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('OK'),
-            ),
-          ],
-        );
-      },
-    );
-  }
+
 
   void _showEmergencyDialog() {
     showDialog(

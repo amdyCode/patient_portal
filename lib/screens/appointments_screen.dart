@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 import '../services/data_loader.dart';
 import '../models/appointment.dart';
 import '../widgets/appointment_card.dart';
@@ -171,7 +172,7 @@ class _AppointmentsScreenState extends State<AppointmentsScreen>
                     ),
                     const SizedBox(height: 16),
                     ElevatedButton.icon(
-                      onPressed: () => _showNewAppointmentDialog(),
+                      onPressed: () => context.push('/nouvelle-prise-rdv'),
                       icon: const Icon(Icons.add),
                       label: const Text('Prendre un rendez-vous'),
                       style: ElevatedButton.styleFrom(
@@ -232,27 +233,6 @@ class _AppointmentsScreenState extends State<AppointmentsScreen>
               ),
             );
           },
-        );
-      },
-    );
-  }
-
-  void _showNewAppointmentDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-          title: const Text('Nouveau rendez-vous'),
-          content: const Text('Cette fonctionnalité sera bientôt disponible.'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('OK'),
-            ),
-          ],
         );
       },
     );

@@ -4,6 +4,7 @@ import '../screens/appointments_screen.dart';
 import '../screens/dossier_screen.dart';
 import '../screens/recommandations_screen.dart';
 import '../widgets/main_navigation_wrapper.dart';
+import '../screens/new_appointment_screen.dart';
 
 class AppRoutes {
   static final GoRouter router = GoRouter(
@@ -39,6 +40,10 @@ class AppRoutes {
             ),
           ),
         ],
+      ),
+      GoRoute(
+        path: '/nouvelle-prise-rdv',
+        builder: (context, state) => const NewAppointmentScreen(),
       ),
     ],
   );
