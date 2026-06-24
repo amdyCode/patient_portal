@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
 
 class DoctorSelector extends StatelessWidget {
   final List<Map<String, String>> doctors;
@@ -31,19 +32,20 @@ class DoctorSelector extends StatelessWidget {
               margin: const EdgeInsets.symmetric(horizontal: 8),
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: isSelected ? Theme.of(context).primaryColor : Colors.white,
+                gradient: isSelected ? AppTheme.neonGradient : null,
+                color: isSelected ? null : Colors.white.withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(24),
-                boxShadow: [
-                  BoxShadow(
-                    color: isSelected 
-                        ? Theme.of(context).primaryColor.withValues(alpha: 0.3)
-                        : Colors.black.withValues(alpha: 0.03),
-                    offset: Offset(0, isSelected ? 8 : 4),
-                    blurRadius: isSelected ? 24 : 12,
-                  ),
-                ],
+                boxShadow: isSelected
+                    ? [
+                        BoxShadow(
+                          color: AppTheme.neonPurple.withValues(alpha: 0.4),
+                          offset: const Offset(0, 8),
+                          blurRadius: 24,
+                        ),
+                      ]
+                    : [],
                 border: Border.all(
-                  color: isSelected ? Colors.transparent : const Color(0xFFE2E8F0),
+                  color: isSelected ? Colors.transparent : Colors.white.withValues(alpha: 0.1),
                   width: 1.5,
                 ),
               ),
@@ -74,7 +76,7 @@ class DoctorSelector extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: isSelected ? Colors.white : const Color(0xFF1E293B),
+                      color: isSelected ? Colors.white : Colors.white,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -85,7 +87,7 @@ class DoctorSelector extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 12,
-                      color: isSelected ? Colors.white.withValues(alpha: 0.8) : const Color(0xFF64748B),
+                      color: isSelected ? Colors.white.withValues(alpha: 0.8) : Colors.white60,
                     ),
                   ),
                 ],

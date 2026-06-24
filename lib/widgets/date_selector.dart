@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
 
 class DateSelector extends StatelessWidget {
   final List<String> dates;
@@ -31,17 +32,18 @@ class DateSelector extends StatelessWidget {
               width: 70,
               margin: const EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
-                color: isSelected ? Theme.of(context).primaryColor : Colors.white,
+                gradient: isSelected ? AppTheme.neonGradient : null,
+                color: isSelected ? null : Colors.white.withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: isSelected ? [
                   BoxShadow(
-                    color: Theme.of(context).primaryColor.withValues(alpha: 0.3),
+                    color: AppTheme.neonPurple.withValues(alpha: 0.4),
                     offset: const Offset(0, 8),
                     blurRadius: 16,
                   ),
-                ] : null,
+                ] : [],
                 border: Border.all(
-                  color: isSelected ? Colors.transparent : const Color(0xFFE2E8F0),
+                  color: isSelected ? Colors.transparent : Colors.white.withValues(alpha: 0.1),
                   width: 1.5,
                 ),
               ),
@@ -53,7 +55,7 @@ class DateSelector extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,
-                      color: isSelected ? Colors.white.withValues(alpha: 0.8) : const Color(0xFF64748B),
+                      color: isSelected ? Colors.white.withValues(alpha: 0.8) : Colors.white60,
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -62,7 +64,7 @@ class DateSelector extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color: isSelected ? Colors.white : const Color(0xFF1E293B),
+                      color: isSelected ? Colors.white : Colors.white,
                     ),
                   ),
                 ],

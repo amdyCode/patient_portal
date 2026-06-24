@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../services/data_loader.dart';
 import '../models/dossier.dart';
 import '../widgets/dossier_section.dart';
+import '../theme/app_theme.dart';
 
 class DossierScreen extends StatefulWidget {
   const DossierScreen({super.key});
@@ -48,7 +49,7 @@ class _DossierScreenState extends State<DossierScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           Positioned(
@@ -59,7 +60,7 @@ class _DossierScreenState extends State<DossierScreen>
               height: 300,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: const Color(0xFF3B82F6).withValues(alpha: 0.1),
+                color: AppTheme.neonBlue.withValues(alpha: 0.1),
               ),
             ),
           ),
@@ -71,7 +72,7 @@ class _DossierScreenState extends State<DossierScreen>
               height: 250,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: const Color(0xFF8B5CF6).withValues(alpha: 0.1),
+                color: AppTheme.neonPurple.withValues(alpha: 0.1),
               ),
             ),
           ),
@@ -109,7 +110,7 @@ class _DossierScreenState extends State<DossierScreen>
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFF1E293B),
+                                  color: Colors.white,
                                 ),
                               ),
                             ],
@@ -194,20 +195,24 @@ class _DossierScreenState extends State<DossierScreen>
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF1E293B),
+              color: Colors.white,
             ),
           ),
           const Spacer(),
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.white.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.1),
+                width: 1.5,
+              ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.05),
-                  offset: const Offset(0, 2),
-                  blurRadius: 8,
+                  color: AppTheme.neonBlue.withValues(alpha: 0.2),
+                  offset: const Offset(0, 4),
+                  blurRadius: 12,
                 ),
               ],
             ),
@@ -227,8 +232,10 @@ class _DossierScreenState extends State<DossierScreen>
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: AppTheme.surfaceDark,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
+            side: BorderSide(color: Colors.white.withValues(alpha: 0.1), width: 1.5),
           ),
           title: Text('Modifier $sectionTitle'),
           content: const Text('La modification de cette section sera bientôt disponible.'),

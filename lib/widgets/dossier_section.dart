@@ -21,9 +21,9 @@ class DossierSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.7),
+        color: Colors.white.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.5), width: 1.5),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.1), width: 1.5),
         boxShadow: [
           BoxShadow(
             color: color.withValues(alpha: 0.1),
@@ -62,7 +62,7 @@ class DossierSection extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF1E293B),
+                    color: Colors.white,
                   ),
                 ),
               ),
@@ -97,7 +97,7 @@ class DossierSection extends StatelessWidget {
                       'Aucune donnée disponible',
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.grey[600],
+                        color: Colors.white60,
                         fontStyle: FontStyle.italic,
                       ),
                     ),
@@ -126,7 +126,7 @@ class DossierSection extends StatelessWidget {
                       item,
                       style: const TextStyle(
                         fontSize: 15,
-                        color: Color(0xFF475569),
+                        color: Colors.white70,
                         height: 1.4,
                       ),
                     ),

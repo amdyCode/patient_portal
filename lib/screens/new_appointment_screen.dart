@@ -4,6 +4,7 @@ import 'dart:ui';
 import '../widgets/doctor_selector.dart';
 import '../widgets/date_selector.dart';
 import '../widgets/time_selector.dart';
+import '../theme/app_theme.dart';
 
 class NewAppointmentScreen extends StatefulWidget {
   const NewAppointmentScreen({super.key});
@@ -56,7 +57,11 @@ class _NewAppointmentScreenState extends State<NewAppointmentScreen> {
           child: ScaleTransition(
             scale: CurvedAnimation(parent: anim1, curve: Curves.easeOutBack),
             child: AlertDialog(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+              backgroundColor: AppTheme.surfaceDark,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24),
+                side: BorderSide(color: Colors.white.withValues(alpha: 0.1), width: 1.5),
+              ),
               contentPadding: const EdgeInsets.all(32),
               content: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -64,10 +69,10 @@ class _NewAppointmentScreenState extends State<NewAppointmentScreen> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF10B981).withValues(alpha: 0.1),
+                      color: AppTheme.neonGreen.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(Icons.check_circle_rounded, color: Color(0xFF10B981), size: 64),
+                    child: const Icon(Icons.check_circle_rounded, color: AppTheme.neonGreen, size: 64),
                   ),
                   const SizedBox(height: 24),
                   const Text(
@@ -75,7 +80,7 @@ class _NewAppointmentScreenState extends State<NewAppointmentScreen> {
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1E293B),
+                      color: Colors.white,
                       letterSpacing: -0.5,
                     ),
                   ),
@@ -83,7 +88,7 @@ class _NewAppointmentScreenState extends State<NewAppointmentScreen> {
                   Text(
                     'Votre consultation avec ${doctors[_selectedDoctorIndex]['name']} est programmée.',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: Color(0xFF64748B), height: 1.5),
+                    style: const TextStyle(color: Colors.white60, height: 1.5),
                   ),
                   const SizedBox(height: 32),
                   SizedBox(
@@ -94,7 +99,7 @@ class _NewAppointmentScreenState extends State<NewAppointmentScreen> {
                         context.pop();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Theme.of(context).primaryColor,
+                        backgroundColor: AppTheme.neonPurple,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16),
@@ -120,7 +125,7 @@ class _NewAppointmentScreenState extends State<NewAppointmentScreen> {
     bool canConfirm = _selectedDoctorIndex != -1 && _selectedTimeIndex != -1;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF4F7FC),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         bottom: false,
         child: Column(
@@ -171,7 +176,7 @@ class _NewAppointmentScreenState extends State<NewAppointmentScreen> {
       child: Row(
         children: [
           IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Color(0xFF1E293B)),
+            icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
             onPressed: () => context.pop(),
           ),
           const SizedBox(width: 8),
@@ -180,7 +185,7 @@ class _NewAppointmentScreenState extends State<NewAppointmentScreen> {
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF1E293B),
+              color: Colors.white,
               letterSpacing: -0.5,
             ),
           ),
@@ -197,7 +202,7 @@ class _NewAppointmentScreenState extends State<NewAppointmentScreen> {
         style: const TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,
-          color: Color(0xFF1E293B),
+          color: Colors.white,
         ),
       ),
     );
@@ -225,7 +230,7 @@ class _NewAppointmentScreenState extends State<NewAppointmentScreen> {
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Theme.of(context).primaryColor.withValues(alpha: 0.3),
+                color: AppTheme.neonPurple.withValues(alpha: 0.4),
                 offset: const Offset(0, 10),
                 blurRadius: 24,
               ),
@@ -234,7 +239,7 @@ class _NewAppointmentScreenState extends State<NewAppointmentScreen> {
           child: ElevatedButton(
             onPressed: _confirmAppointment,
             style: ElevatedButton.styleFrom(
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: AppTheme.neonPurple,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),

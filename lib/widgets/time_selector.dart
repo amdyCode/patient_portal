@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/app_theme.dart';
 
 class TimeSelector extends StatelessWidget {
   final List<String> times;
@@ -28,12 +29,19 @@ class TimeSelector extends StatelessWidget {
               width: (MediaQuery.of(context).size.width - 48 - 24) / 3,
               padding: const EdgeInsets.symmetric(vertical: 14),
               decoration: BoxDecoration(
-                color: isSelected ? Theme.of(context).primaryColor.withValues(alpha: 0.1) : Colors.white,
+                color: isSelected ? AppTheme.neonPurple.withValues(alpha: 0.15) : Colors.white.withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: isSelected ? Theme.of(context).primaryColor : const Color(0xFFE2E8F0),
+                  color: isSelected ? AppTheme.neonPurple : Colors.white.withValues(alpha: 0.1),
                   width: 1.5,
                 ),
+                boxShadow: isSelected ? [
+                  BoxShadow(
+                    color: AppTheme.neonPurple.withValues(alpha: 0.2),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  )
+                ] : [],
               ),
               child: Center(
                 child: Text(
@@ -41,7 +49,7 @@ class TimeSelector extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 15,
                     fontWeight: isSelected ? FontWeight.bold : FontWeight.w600,
-                    color: isSelected ? Theme.of(context).primaryColor : const Color(0xFF64748B),
+                    color: isSelected ? AppTheme.neonPurple : Colors.white60,
                   ),
                 ),
               ),

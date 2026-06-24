@@ -20,9 +20,9 @@ class RecommendationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.7),
+        color: Colors.white.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.5), width: 1.5),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.1), width: 1.5),
         boxShadow: [
           BoxShadow(
             color: categoryColor.withValues(alpha: 0.15),
@@ -64,7 +64,7 @@ class RecommendationCard extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1E293B),
+                        color: Colors.white,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -94,7 +94,7 @@ class RecommendationCard extends StatelessWidget {
                           recommendation.prioriteLibelle,
                           style: const TextStyle(
                             fontSize: 12,
-                            color: Color(0xFF64748B),
+                            color: Colors.white60,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -110,7 +110,7 @@ class RecommendationCard extends StatelessWidget {
             recommendation.description,
             style: const TextStyle(
               fontSize: 15,
-              color: Color(0xFF475569),
+              color: Colors.white70,
               height: 1.4,
             ),
           ),

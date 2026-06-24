@@ -3,6 +3,7 @@ import 'package:patient_portal/widgets/recommendation_card.dart';
 import 'package:provider/provider.dart';
 import '../services/data_loader.dart';
 import '../models/recommandation.dart';
+import '../theme/app_theme.dart';
 
 class RecommendationsScreen extends StatefulWidget {
   const RecommendationsScreen({super.key});
@@ -60,7 +61,7 @@ class _RecommendationsScreenState extends State<RecommendationsScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Stack(
         children: [
           Positioned(
@@ -71,7 +72,7 @@ class _RecommendationsScreenState extends State<RecommendationsScreen>
               height: 300,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: const Color(0xFF10B981).withValues(alpha: 0.1),
+                color: AppTheme.neonGreen.withValues(alpha: 0.1),
               ),
             ),
           ),
@@ -83,7 +84,7 @@ class _RecommendationsScreenState extends State<RecommendationsScreen>
               height: 250,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: const Color(0xFF3B82F6).withValues(alpha: 0.1),
+                color: AppTheme.neonBlue.withValues(alpha: 0.1),
               ),
             ),
           ),
@@ -111,20 +112,24 @@ class _RecommendationsScreenState extends State<RecommendationsScreen>
             style: TextStyle(
               fontSize: 28,
               fontWeight: FontWeight.bold,
-              color: Color(0xFF1E293B),
+              color: Colors.white,
             ),
           ),
           const Spacer(),
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Colors.white.withValues(alpha: 0.05),
               borderRadius: BorderRadius.circular(12),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.1),
+                width: 1.5,
+              ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.05),
-                  offset: const Offset(0, 2),
-                  blurRadius: 8,
+                  color: AppTheme.neonBlue.withValues(alpha: 0.2),
+                  offset: const Offset(0, 4),
+                  blurRadius: 12,
                 ),
               ],
             ),
@@ -144,8 +149,12 @@ class _RecommendationsScreenState extends State<RecommendationsScreen>
       margin: const EdgeInsets.symmetric(horizontal: 20),
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: const Color(0xFFF1F5F9),
+        color: Colors.white.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.1),
+          width: 1.5,
+        ),
       ),
       child: Row(
         children: [
@@ -166,14 +175,15 @@ class _RecommendationsScreenState extends State<RecommendationsScreen>
           duration: const Duration(milliseconds: 200),
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
           decoration: BoxDecoration(
-            color: isSelected ? Colors.white : Colors.transparent,
+            gradient: isSelected ? AppTheme.neonGradient : null,
+            color: isSelected ? null : Colors.transparent,
             borderRadius: BorderRadius.circular(8),
             boxShadow: isSelected
                 ? [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.05),
-                      offset: const Offset(0, 2),
-                      blurRadius: 4,
+                      color: AppTheme.neonPurple.withValues(alpha: 0.3),
+                      offset: const Offset(0, 4),
+                      blurRadius: 8,
                     ),
                   ]
                 : null,
@@ -183,9 +193,7 @@ class _RecommendationsScreenState extends State<RecommendationsScreen>
             children: [
               Icon(
                 icon,
-                color: isSelected
-                    ? const Color(0xFF3B82F6)
-                    : const Color(0xFF64748B),
+                color: isSelected ? Colors.white : Colors.white60,
                 size: 16,
               ),
               const SizedBox(width: 6),
@@ -193,9 +201,7 @@ class _RecommendationsScreenState extends State<RecommendationsScreen>
                 title,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: isSelected
-                      ? const Color(0xFF3B82F6)
-                      : const Color(0xFF64748B),
+                  color: isSelected ? Colors.white : Colors.white60,
                   fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
                   fontSize: 13,
                 ),
@@ -237,7 +243,7 @@ class _RecommendationsScreenState extends State<RecommendationsScreen>
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1E293B),
+                        color: Colors.white,
                       ),
                     ),
                   ],
@@ -263,13 +269,13 @@ class _RecommendationsScreenState extends State<RecommendationsScreen>
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF1E293B),
+                        color: Colors.white,
                       ),
                     ),
                     const SizedBox(height: 8),
                     const Text(
                       'Revenez plus tard pour de nouveaux conseils.',
-                      style: TextStyle(color: Color(0xFF64748B)),
+                      style: TextStyle(color: Colors.white60),
                     ),
                   ],
                 ),
@@ -330,11 +336,11 @@ class _RecommendationsScreenState extends State<RecommendationsScreen>
   Color _getRecommendationColor(CategorieRecommandation categorie) {
     switch (categorie) {
       case CategorieRecommandation.sommeil:
-        return const Color(0xFF8B5CF6);
+        return AppTheme.neonPurple;
       case CategorieRecommandation.nutrition:
-        return const Color(0xFF10B981);
+        return AppTheme.neonGreen;
       case CategorieRecommandation.activitePhysique:
-        return const Color(0xFF3B82F6);
+        return AppTheme.neonBlue;
     }
   }
 
