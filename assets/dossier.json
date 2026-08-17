@@ -33,7 +33,10 @@
         "nom": "Pénicilline",
         "type": "Médicament",
         "gravite": "Modérée",
-        "symptomes": ["Éruption cutanée", "Démangeaisons"],
+        "symptomes": [
+          "Éruption cutanée",
+          "Démangeaisons"
+        ],
         "dateDecouverte": "2018-09-12"
       },
       {
@@ -41,7 +44,10 @@
         "nom": "Pollen de bouleau",
         "type": "Environnementale",
         "gravite": "Légère",
-        "symptomes": ["Rhinite", "Yeux qui pleurent"],
+        "symptomes": [
+          "Rhinite",
+          "Yeux qui pleurent"
+        ],
         "dateDecouverte": "2015-04-20"
       },
       {
@@ -49,7 +55,10 @@
         "nom": "Fruits à coque",
         "type": "Alimentaire",
         "gravite": "Sévère",
-        "symptomes": ["Difficultés respiratoires", "Gonflement"],
+        "symptomes": [
+          "Difficultés respiratoires",
+          "Gonflement"
+        ],
         "dateDecouverte": "2012-11-08"
       }
     ],
