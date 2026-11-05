@@ -27,10 +27,8 @@ class AppTheme {
         primary: neonPurple,
         secondary: neonBlue,
         surface: surfaceDark,
-        background: backgroundDark,
       ),
       textTheme: GoogleFonts.outfitTextTheme(ThemeData.dark().textTheme),
-      useMaterial3: true,
     );
   }
 }

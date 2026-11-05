@@ -4,7 +4,6 @@ import 'package:patient_portal/widgets/stat_card.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import '../services/data_loader.dart';
-import '../models/patient.dart';
 import '../models/recommandation.dart';
 import '../widgets/health_tip_card.dart';
 import '../widgets/interactive_mood_selector.dart';
@@ -105,6 +104,27 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                         },
                         child: const Text('Réessayer'),
                       ),
+                      const SizedBox(height: 16),
+                      ElevatedButton.icon(
+                        icon: const Icon(Icons.cloud_upload_rounded),
+                        label: Text(dataLoader.hasChangesToSync ? 'Seed Database' : 'À jour'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Theme.of(context).primaryColor.withValues(alpha: 0.2),
+                          foregroundColor: Theme.of(context).primaryColor,
+                          disabledBackgroundColor: Colors.white12,
+                          disabledForegroundColor: Colors.white54,
+                        ),
+                        onPressed: dataLoader.hasChangesToSync
+                            ? () async {
+                                await dataLoader.seedDatabase();
+                                if (!context.mounted) return;
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Données envoyées et mises à jour !')),
+                                );
+                                dataLoader.preloadAllData();
+                              }
+                            : null,
+                      ),
                     ],
                   ),
                 );
@@ -116,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildWelcomeHeader(dataLoader.patient),
+                    _buildWelcomeHeader(dataLoader),
                     const SizedBox(height: 30),
                     const InteractiveMoodSelector(),
                     const SizedBox(height: 30),
@@ -137,8 +157,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildWelcomeHeader(Patient? patient) {
-    String firstName = patient?.prenom ?? 'Utilisateur';
+  Widget _buildWelcomeHeader(DataLoader dataLoader) {
+    String firstName = dataLoader.patient?.prenom ?? 'Utilisateur';
     
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -165,7 +185,26 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             ),
           ],
         ),
-        Container(
+        Row(
+          children: [
+            IconButton(
+              icon: Icon(
+                dataLoader.hasChangesToSync ? Icons.cloud_upload_rounded : Icons.cloud_done_rounded, 
+                color: dataLoader.hasChangesToSync ? Colors.white : Colors.white30,
+              ),
+              tooltip: dataLoader.hasChangesToSync ? "Synchroniser les modifications" : "À jour",
+              onPressed: dataLoader.hasChangesToSync
+                  ? () async {
+                      await context.read<DataLoader>().seedDatabase();
+                      if (!mounted) return;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Données envoyées et mises à jour !')),
+                      );
+                    }
+                  : null,
+            ),
+            const SizedBox(width: 8),
+            Container(
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.05),
             shape: BoxShape.circle,
@@ -186,8 +225,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             backgroundColor: Colors.transparent,
             backgroundImage: NetworkImage('https://i.pravatar.cc/150?img=47'), // Fake avatar
           ),
-        )
-      ],
+          ),
+        ],
+      ),
+    ],
     );
   }
 

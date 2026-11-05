@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/patient.dart';
 import '../models/appointment.dart';
 import '../models/dossier.dart';
@@ -18,6 +19,7 @@ class DataLoader extends ChangeNotifier {
 
   bool _isLoading = false;
   String? _error;
+  bool _hasChangesToSync = false;
 
   // Getters
   Patient? get patient => _patient;
@@ -26,17 +28,16 @@ class DataLoader extends ChangeNotifier {
   RecommandationsData? get recommandationsData => _recommandationsData;
   bool get isLoading => _isLoading;
   String? get error => _error;
+  bool get hasChangesToSync => _hasChangesToSync;
 
   Future<Patient> loadPatient() async {
     if (_patient != null) return _patient!;
 
     try {
       _setLoading(true);
-      final String jsonString = await rootBundle.loadString(
-        'assets/patient.json',
-      );
-      final Map<String, dynamic> jsonData = json.decode(jsonString);
-      _patient = Patient.fromJson(jsonData);
+      final doc = await FirebaseFirestore.instance.collection('patients').doc('current_patient').get();
+      if (!doc.exists) throw Exception('Patient non trouvé dans Firestore.');
+      _patient = Patient.fromJson(doc.data()!);
       _setLoading(false);
       return _patient!;
     } catch (e) {
@@ -45,19 +46,15 @@ class DataLoader extends ChangeNotifier {
     }
   }
 
-  // Charge tous les rendez-vous depuis le fichier JSON
   Future<List<RendezVous>> loadRendezVous() async {
     if (_rendezVous != null) return _rendezVous!;
 
     try {
       _setLoading(true);
-      final String jsonString = await rootBundle.loadString(
-        'assets/rendezvous.json',
-      );
-      final Map<String, dynamic> jsonData = json.decode(jsonString);
-
-      _rendezVous = (jsonData['rendezVous'] as List)
-          .map((rdvJson) => RendezVous.fromJson(rdvJson))
+      final snapshot = await FirebaseFirestore.instance.collection('rendezvous').get();
+      
+      _rendezVous = snapshot.docs
+          .map((doc) => RendezVous.fromJson(doc.data()))
           .toList();
 
       // Tri par date (les plus récents en premier)
@@ -78,11 +75,9 @@ class DataLoader extends ChangeNotifier {
 
     try {
       _setLoading(true);
-      final String jsonString = await rootBundle.loadString(
-        'assets/dossier.json',
-      );
-      final Map<String, dynamic> jsonData = json.decode(jsonString);
-      _dossierMedical = DossierMedical.fromJson(jsonData);
+      final doc = await FirebaseFirestore.instance.collection('dossiers').doc('current_dossier').get();
+      if (!doc.exists) throw Exception('Dossier introuvable dans Firestore. Veuillez lancer le Seed Database.');
+      _dossierMedical = DossierMedical.fromJson(doc.data()!);
       _setLoading(false);
       return _dossierMedical!;
     } catch (e) {
@@ -96,11 +91,9 @@ class DataLoader extends ChangeNotifier {
 
     try {
       _setLoading(true);
-      final String jsonString = await rootBundle.loadString(
-        'assets/recommandations.json',
-      );
-      final Map<String, dynamic> jsonData = json.decode(jsonString);
-      _recommandationsData = RecommandationsData.fromJson(jsonData);
+      final doc = await FirebaseFirestore.instance.collection('recommandations').doc('current_recommandations').get();
+      if (!doc.exists) throw Exception('Recommandations introuvables.');
+      _recommandationsData = RecommandationsData.fromJson(doc.data()!);
       _setLoading(false);
       return _recommandationsData!;
     } catch (e) {
@@ -110,8 +103,8 @@ class DataLoader extends ChangeNotifier {
   }
 
   Future<RendezVous?> getDernierRendezVous() async {
-    final rendezVous = await loadRendezVous();
-    final rendezVousPasses = rendezVous
+    final rendezVousList = await loadRendezVous();
+    final rendezVousPasses = rendezVousList
         .where((rdv) => rdv.statut == StatutRendezVous.passe)
         .toList();
 
@@ -125,8 +118,8 @@ class DataLoader extends ChangeNotifier {
   }
 
   Future<List<RendezVous>> getProchainRendezVous() async {
-    final rendezVous = await loadRendezVous();
-    final rendezVousAVenir = rendezVous
+    final rendezVousList = await loadRendezVous();
+    final rendezVousAVenir = rendezVousList
         .where((rdv) => rdv.statut == StatutRendezVous.aVenir)
         .toList();
 
@@ -145,23 +138,8 @@ class DataLoader extends ChangeNotifier {
   Future<List<RendezVous>> getRendezVousByStatut(
     StatutRendezVous statut,
   ) async {
-    final rendezVous = await loadRendezVous();
-    return rendezVous.where((rdv) => rdv.statut == statut).toList();
-  }
-
-  Future<Recommandation?> getRecommandationDuJour() async {
-    final recommandationsData = await loadRecommandations();
-    return recommandationsData.recommandationDuJour;
-  }
-
-  Future<List<Recommandation>> getRecommandationsByCategorie(
-    CategorieRecommandation? categorie,
-  ) async {
-    final recommandationsData = await loadRecommandations();
-    return Recommandation.filtrerParCategorie(
-      recommandationsData.recommandations,
-      categorie,
-    );
+    final rendezVousList = await loadRendezVous();
+    return rendezVousList.where((rdv) => rdv.statut == statut).toList();
   }
 
   Future<List<Traitement>> getTraitementsActifs() async {
@@ -180,6 +158,7 @@ class DataLoader extends ChangeNotifier {
   }
 
   Future<void> preloadAllData() async {
+    if (isDataCached) return;
     try {
       _setLoading(true);
       await Future.wait([
@@ -187,11 +166,34 @@ class DataLoader extends ChangeNotifier {
         loadRendezVous(),
         loadDossierMedical(),
         loadRecommandations(),
+        _checkIfJsonChanged(),
       ]);
       _setLoading(false);
     } catch (e) {
       _setError('Erreur lors du préchargement des données: $e');
-      throw Exception('Erreur lors du préchargement des données: $e');
+      print('Erreur lors du préchargement des données: $e');
+    }
+  }
+
+  Future<void> _checkIfJsonChanged() async {
+    try {
+      final String patientStr = await rootBundle.loadString('assets/patient.json');
+      final String dossierStr = await rootBundle.loadString('assets/dossier.json');
+      final String recStr = await rootBundle.loadString('assets/recommandations.json');
+      final String rdvStr = await rootBundle.loadString('assets/rendezvous.json');
+      
+      final int currentHash = (patientStr + dossierStr + recStr + rdvStr).hashCode;
+      
+      final doc = await FirebaseFirestore.instance.collection('metadata').doc('sync').get();
+      if (doc.exists) {
+        final int storedHash = doc.data()?['jsonHash'] ?? 0;
+        _hasChangesToSync = currentHash != storedHash;
+      } else {
+        _hasChangesToSync = true;
+      }
+      notifyListeners();
+    } catch (e) {
+      print('Erreur lors de la vérification des changements JSON: $e');
     }
   }
 
@@ -211,8 +213,6 @@ class DataLoader extends ChangeNotifier {
       _recommandationsData != null;
 
   Future<Map<String, dynamic>> getStatistiques() async {
-    await preloadAllData();
-
     final prochains = await getProchainRendezVous();
     final passes = await getRendezVousByStatut(StatutRendezVous.passe);
     final traitements = await getTraitementsActifs();
@@ -238,5 +238,62 @@ class DataLoader extends ChangeNotifier {
     _error = error;
     _isLoading = false;
     Future.microtask(() => notifyListeners());
+  }
+
+  Future<Recommandation?> getRecommandationDuJour() async {
+    final data = await loadRecommandations();
+    if (data.recommandations.isEmpty) return null;
+    return data.recommandations.first;
+  }
+
+  Future<List<Recommandation>> getRecommandationsByCategorie(CategorieRecommandation? categorie) async {
+    final data = await loadRecommandations();
+    if (categorie == null) return data.recommandations;
+    return data.recommandations.where((r) => r.categorie == categorie).toList();
+  }
+
+  Future<void> seedDatabase() async {
+    try {
+      _setLoading(true);
+      final firestore = FirebaseFirestore.instance;
+
+      final String patientStr = await rootBundle.loadString('assets/patient.json');
+      final String dossierStr = await rootBundle.loadString('assets/dossier.json');
+      final String recStr = await rootBundle.loadString('assets/recommandations.json');
+      final String rdvStr = await rootBundle.loadString('assets/rendezvous.json');
+
+      // Update Patient
+      await firestore.collection('patients').doc('current_patient').set(json.decode(patientStr), SetOptions(merge: true));
+
+      // Update Dossier
+      await firestore.collection('dossiers').doc('current_dossier').set(json.decode(dossierStr), SetOptions(merge: true));
+
+      // Update Recommandations
+      await firestore.collection('recommandations').doc('current_recommandations').set(json.decode(recStr), SetOptions(merge: true));
+
+      // Update Rendez-vous (using their specific ID to merge instead of deleting everything)
+      final Map<String, dynamic> rdvData = json.decode(rdvStr);
+      final List rdvList = rdvData['rendezVous'];
+      for (var rdv in rdvList) {
+        final String? id = rdv['id'];
+        if (id != null) {
+          await firestore.collection('rendezvous').doc(id).set(rdv, SetOptions(merge: true));
+        } else {
+          await firestore.collection('rendezvous').add(rdv);
+        }
+      }
+
+      // Save new hash
+      final int newHash = (patientStr + dossierStr + recStr + rdvStr).hashCode;
+      await firestore.collection('metadata').doc('sync').set({'jsonHash': newHash});
+
+      _hasChangesToSync = false;
+      _setLoading(false);
+      clearCache(); // Force reload from firestore
+      print("SEED TERMINÉ AVEC SUCCÈS");
+    } catch (e) {
+      _setError('Erreur lors du seed de la base de données: $e');
+      print('Erreur lors du seed de la base de données: $e');
+    }
   }
 }
